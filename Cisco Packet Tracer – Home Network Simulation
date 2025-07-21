@@ -1,1 +1,46 @@
+# 🏠 Cisco Packet Tracer – Home Network Simulation
 
+## 📌 Overview
+This project demonstrates the setup and configuration of a basic home network using Cisco Packet Tracer. The network includes:
+- 1 Router (1941)
+- 2 Switches (2960-24TT)
+- 4 PCs (PC0–PC3) across two subnets
+- Static IP configuration
+- Successful ping tests verifying connectivity across the network
+
+---
+
+## 🗺️ Network Topology
+![Full Network Topology](images/PotentialSetupComplete.PNG)
+
+- **LAN 1 (Left Side):**
+  - PC0: `192.168.1.10`
+  - PC1: `192.168.1.11`
+  - Default Gateway: `192.168.1.1`
+
+- **LAN 2 (Right Side):**
+  - PC2: `192.168.2.10`
+  - PC3: `192.168.2.11`
+  - Default Gateway: `192.168.2.1`
+
+Router interfaces:
+- `GigabitEthernet0/0`: `192.168.1.1` (to Switch0)
+- `GigabitEthernet0/1`: `192.168.2.1` (to Switch1)
+
+---
+
+## ⚙️ Configuration Steps
+
+### 🔧 Router CLI
+```bash
+enable
+configure terminal
+interface gig0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+interface gig0/1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+exit
