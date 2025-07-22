@@ -18,11 +18,11 @@ Below is the final layout of the simulated home network:
 
 ### 2.2 Devices Used
 
-| Device       | Model          | Purpose                 |
-|--------------|----------------|--------------------------|
-| Router       | Cisco 1941     | Connects both LANs       |
-| Switch x2    | 2960-24TT      | Connects devices within each LAN |
-| PC0 – PC3    | Desktop PCs    | Simulate endpoint users  |
+| Device       | Model          | Purpose                           |
+|--------------|----------------|-----------------------------------|
+| Router       | Cisco 1941     | Connects both LANs                |
+| Switch x2    | 2960-24TT      | Connects devices within each LAN  |
+| PC0 – PC3    | Desktop PCs    | Simulate endpoint users           |
 
 ---
 
