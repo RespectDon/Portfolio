@@ -84,14 +84,13 @@ Repeat this setup for PC1–PC3, adjusting the IP address and gateway according 
 
 Once all devices were configured, basic connectivity was verified using the ping tool in each PC's command prompt.
 
-![PC to PC Ping Success](./images/PCtoPCConnectionSuccess.PNG)
+![PC to PC Ping Success](./images/PCtoPCconnectionSuccess.PNG)
 
 ### 6.2 Using PDU Tool
 
-To further validate communication, I used the PDU tool to simulate traffic between devices. All tests were successful.
+To further validate communication, I used the PDU tool to simulate traffic between devices.
 
-![PDU Success 1](./images/PDUSuccessAll1.PNG)  
-![PDU Success 2](./images/PDUSuccessAll2.PNG)
+![PDU Success](./images/PDUsuccessAll1.PNG)  
 
 ---
 
@@ -105,7 +104,7 @@ To further validate communication, I used the PDU tool to simulate traffic betwe
 ### 7.2 Lessons Learned
 
 - Every layer of the OSI model has a part to play, from cables (Layer 1) to addressing (Layer 3).
-- Static IPs are simple but tedious to manage at scale — something DHCP can help with in future setups.
+- Static IPs are simple but tedious to manage at scale, something DHCP can help with in future setups.
 - The PDU tool in Packet Tracer provides valuable visibility for debugging.
 
 ---
