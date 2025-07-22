@@ -6,7 +6,7 @@ Welcome to my cybersecurity portfolio! This repository contains hands-on project
 
 | Project | Description | Link |
 |--------|-------------|------|
-| Cisco Packet Tracer – Home Network | A basic network simulation using Cisco Packet Tracer with two LANs and routing | [View Project](./Project-1_Cisco-Network/README.md) |
+| Cisco Packet Tracer – Home Network | A basic network simulation using Cisco Packet Tracer with two LANs and routing | [View Project]([./Project-1_Cisco-Network/README.md](https://github.com/RespectDon/Portfolio/blob/main/docs/index.md)) |
 | SIEM | Collect, visualize, and alert on system logs |  |
 | Honeypot | Deploy a honeypot and analyze attack attempts |  |
 | Malware Analysis | Dissect a malware sample in a secure environment |  |
