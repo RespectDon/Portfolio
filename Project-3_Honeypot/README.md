@@ -11,9 +11,17 @@
 
 ---
 
-## 2. Setup Process
+## 2. Project Overview
 
-### 2.1 T-Pot Installation
+This project involved deploying a honeypot environment using T-Pot Community Edition on a bridged Ubuntu 24.04 virtual machine. T-Pot includes multiple honeypots (Cowrie, Suricata, Mailoney, etc.) containerized with Docker and integrated into the ELK Stack for centralized log processing and visualization.
+
+The goal was to simulate attacker behavior, observe how honeypots record malicious activity, and analyze events through Kibana. This helped build experience with honeypot deployment, container orchestration, and basic threat intelligence collection.
+
+---
+
+## 3. Setup Process
+
+### 3.1 T-Pot Installation
 
 1. I deployed Ubuntu 24.04 LTS in VMware Workstation with 8GB RAM and 2 CPUs.
 2. I updated the system and installed Docker and Docker Compose.
@@ -45,48 +53,74 @@
 
 ---
 
-### 2.2 Accessing the Interface
+### 3.2 Interface Access
 
-After successful installation, I accessed the T-Pot Web UI using the bridged IP and assigned port:
+Once T-Pot initialized, I accessed the web interface from my host system:
 
 - URL: `http://192.168.68.156:64297`
 
    ![T-Pot Web Interface](./images/TPot_Home2.PNG)
 
-From there, I accessed Kibana, Spiderfoot, CyberChef, and Elasticvue. The system was stable and fully accessible through the browser.
+The interface provides access to:
+- Kibana (for log visualization)
+- CyberChef
+- Spiderfoot (OSINT automation)
+- Elasticvue (index browsing)
 
 ---
 
-### 2.3 Simulating Attack Traffic
+### 3.3 Simulated Attack Traffic
 
-To generate honeypot activity, I SSH’d into the honeypot’s IP using credentials that would trigger logging through the Cowrie container. This produced event logs in Kibana:
+Since my VM was isolated, I simulated attacker behavior manually from the same network. I SSH’d into the honeypot using fake credentials, which triggered Cowrie logging.
 
    ![SSH Login Attempt](./images/SSH_LogIn_Ubuntu.PNG)
 
-Kibana dashboards confirmed that the Cowrie honeypot captured my attempted login:
+The Kibana dashboard confirmed the event:
+- Cowrie recorded the connection
+- The username `don` and password `Libby221!!` appeared in the word cloud
+- The SSH service (port 22) showed activity in the logs
 
    ![Kibana Populated Dashboard 1](./images/Kibana_Populated.PNG)
    ![Kibana Populated Dashboard 2](./images/Kibana_Populated2.PNG)
 
-Additional logs were explored in the Discover tab:
+Logs also included:
+- Source and destination IPs
+- Flow IDs and ports
+- Honeypot container names and timestamps
 
    ![Kibana Logs 1](./images/Kibana_Logs.PNG)
    ![Kibana Logs 2](./images/Kibana_Logs2.PNG)
 
-This confirmed that credential-based access attempts and flow records were being recorded.
+---
+
+## 4. Troubleshooting and Observations
+
+- The `cups` service was using port 631, which blocked one honeypot container. I disabled it to resolve the conflict.
+- The `nginx` container failed to appear at first; a full reboot resolved the issue.
+- After installation, SSH was moved to port `64295`. I updated my SSH commands accordingly.
+- Kibana initially displayed no results. After running the test login, dashboards and log streams populated correctly.
 
 ---
 
-## 3. Troubleshooting and Observations
+## 5. Log Interpretation
 
-- Some Docker containers failed to bind to ports due to existing services (e.g., CUPS using port 631). I resolved this by stopping and disabling conflicting services.
-- The `nginx` container did not appear immediately after installation. A full system reboot resolved this.
-- T-Pot changed the default SSH port to `64295`, which required me to specify the port during login after reboot.
-- Kibana's dashboards initially showed no data, but populated after simulated SSH interaction and internal scans.
+From my simulated attack:
+- Cowrie logged an SSH login attempt using known bad credentials.
+- Source IP matched my attacker VM.
+- Kibana visualized both login fields and flow-level metadata.
+- These results prove that T-Pot can capture and forward interaction data through the ELK stack for real-time monitoring and analysis.
 
 ---
 
-### 4. Summary
+## 6. Next Steps
 
-This project involved deploying T-Pot CE in a virtualized environment to simulate and monitor hostile network activity. Using Cowrie, I triggered honeypot logs with SSH login attempts. Events were visualized and reviewed using Kibana, demonstrating successful event ingestion and mapping. This project provided hands-on experience with honeypots, container orchestration, and log analysis.
+- Forward honeypot logs to an external SIEM like Wazuh or Splunk for centralized correlation.
+- Add packet inspection using Suricata’s alerting features.
+- Set up email alerts for Cowrie login attempts.
+- Deploy on a cloud VM or in a DMZ to observe real-world scanning and exploit behavior.
 
+---
+
+## 7. Summary
+
+This project involved deploying T-Pot CE in a virtualized environment to simulate and monitor network-based attacks. I demonstrated its effectiveness by generating a controlled SSH login attempt and confirming successful log collection and visualization using Kibana. This hands-on experience highlighted the value of honeypots in detection, analysis, and proactive defense strategies.
